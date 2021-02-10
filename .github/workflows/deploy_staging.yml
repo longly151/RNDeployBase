@@ -76,7 +76,5 @@ jobs:
       - name: Setup fastlane
         run: |
           echo "${{ secrets.FASTLANE_IOS_ENV }}" > ios/fastlane/.env
-      - name: Provisioning profile
-        run: cd ios && fastlane codesigning
       - name: Distribute to firebase
         run: cd ios && fastlane firebase_beta
