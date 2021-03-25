@@ -70,22 +70,22 @@ jobs:
           repository: '${{ github.event.client_payload.repository }}'
           token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
           ref: 'staging'
-      - name: NPM Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.npm
-            **/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Pods Cache
-        uses: actions/cache@v2
-        with:
-          path: ios/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
+      # - name: NPM Cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.npm
+      #       **/node_modules
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node-
+      # - name: Pods Cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ios/Pods
+      #     key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-pods-
       - name: NPM Install
         run: |
           echo "${{ secrets[github.event.client_payload.env] }}" > .env
