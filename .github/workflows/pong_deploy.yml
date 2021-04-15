@@ -59,7 +59,7 @@ jobs:
           echo "${{ secrets[github.event.client_payload.fastlane_android_env] }}" > android/fastlane/.env
           cd android && bundle install
       - name: Distribute to firebase
-        run: cd android && bundle exec fastlane firebase_beta
+        run: cd android && bundle exec fastlane beta
 
   distribute-ios:
     runs-on: macOS-latest
@@ -96,4 +96,4 @@ jobs:
         run: |
           echo "${{ secrets[github.event.client_payload.fastlane_ios_env] }}" > ios/fastlane/.env
       - name: Distribute to firebase
-        run: cd ios && fastlane firebase_beta
+        run: cd ios && fastlane beta
