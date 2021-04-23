@@ -1,7 +1,8 @@
 name: Pong Release
 
 on:
-  workflow_dispatch:
+  repository_dispatch:
+    types: [Motivated_ping_release, MinhChauViet_ping_release]
 
 jobs:
   ping-pong:
