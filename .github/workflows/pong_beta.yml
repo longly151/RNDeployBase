@@ -2,7 +2,7 @@ name: Pong Beta
 
 on:
   repository_dispatch:
-    types: [Motivated_ping_beta, MinhChauViet_ping_beta]
+    types: [VLRNBase_ping_beta, Motivated_ping_beta, MinhChauViet_ping_beta]
 jobs:
   ping-pong:
     runs-on: ubuntu-latest
