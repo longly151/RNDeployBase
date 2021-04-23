@@ -1,4 +1,4 @@
-name: Pong Deploy
+name: Pong Release
 
 on:
   repository_dispatch:
@@ -58,7 +58,7 @@ jobs:
           echo "${{ secrets[github.event.client_payload.fastlane_android_env] }}" > android/fastlane/.env
           cd android && bundle install
       - name: Distribute to firebase
-        run: cd android && bundle exec fastlane firebase_beta
+        run: cd android && bundle exec fastlane release
 
   distribute-ios:
     runs-on: macOS-latest
@@ -94,4 +94,4 @@ jobs:
         run: |
           echo "${{ secrets[github.event.client_payload.fastlane_ios_env] }}" > ios/fastlane/.env
       - name: Distribute to firebase
-        run: cd ios && fastlane firebase_beta
+        run: cd ios && fastlane release
