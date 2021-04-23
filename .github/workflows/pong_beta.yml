@@ -1,8 +1,7 @@
 name: Pong Beta
 
 on:
-  repository_dispatch:
-
+  workflow_dispatch:
 jobs:
   ping-pong:
     runs-on: ubuntu-latest

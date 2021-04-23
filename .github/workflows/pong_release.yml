@@ -1,7 +1,7 @@
 name: Pong Release
 
 on:
-  repository_dispatch:
+  workflow_dispatch:
 
 jobs:
   ping-pong:
