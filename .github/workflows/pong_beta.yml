@@ -43,22 +43,24 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.7'
-      - name: Install firebase tool
-        run: |
-          yarn global add firebase-tools
-      - name: Bundle Cache
-        uses: actions/cache@v2
-        with:
-          path: android/vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - name: Setup fastlane
-        run: |
-          echo "${{ secrets[github.event.client_payload.fastlane_android_env] }}" > android/fastlane/.env
-          cd android && bundle install
+      # - name: Install firebase tool
+      #   run: |
+      #     yarn global add firebase-tools
+      # - name: Bundle Cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: android/vendor/bundle
+      #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-gems-
+      # - name: Setup fastlane
+      #   run: |
+      #     echo "${{ secrets[github.event.client_payload.fastlane_android_env] }}" > android/fastlane/.env
+      #     cd android && bundle install
+      # - name: Distribute to firebase
+      #   run: cd android && bundle exec fastlane beta
       - name: Distribute to firebase
-        run: cd android && bundle exec fastlane beta
+        run: cd android && fastlane beta
 
   distribute-ios:
     runs-on: macOS-latest
