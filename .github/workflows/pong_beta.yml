@@ -18,15 +18,15 @@ jobs:
         with:
           repository: '${{ github.event.client_payload.repository }}'
           token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
-      - name: NPM Cache
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.npm
-            **/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      # - name: NPM Cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: |
+      #       ~/.npm
+      #       **/node_modules
+      #     key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-node-
       - name: NPM Install
         run: |
           echo "${{ secrets[github.event.client_payload.env] }}" > .env
@@ -43,9 +43,9 @@ jobs:
       - uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.7'
-      # - name: Install firebase tool
-      #   run: |
-      #     yarn global add firebase-tools
+      - name: Install firebase tool
+        run: |
+          yarn global add firebase-tools
       # - name: Bundle Cache
       #   uses: actions/cache@v2
       #   with:
@@ -53,12 +53,12 @@ jobs:
       #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
       #     restore-keys: |
       #       ${{ runner.os }}-gems-
-      # - name: Setup fastlane
-      #   run: |
-      #     echo "${{ secrets[github.event.client_payload.fastlane_android_env] }}" > android/fastlane/.env
-      #     cd android && bundle install
-      # - name: Distribute to firebase
-      #   run: cd android && bundle exec fastlane beta
+      - name: Setup fastlane
+        run: |
+          echo "${{ secrets[github.event.client_payload.fastlane_android_env] }}" > android/fastlane/.env
+          cd android && bundle install
+      - name: Distribute to firebase
+        run: cd android && bundle exec fastlane beta
       - name: Distribute to firebase
         run: cd android && fastlane beta
 
