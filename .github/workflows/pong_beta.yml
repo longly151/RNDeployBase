@@ -18,6 +18,7 @@ jobs:
         with:
           repository: '${{ github.event.client_payload.repository }}'
           token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
+          ref: 'staging'
       # - name: NPM Cache
       #   uses: actions/cache@v2
       #   with:
@@ -68,6 +69,7 @@ jobs:
         with:
           repository: '${{ github.event.client_payload.repository }}'
           token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
+          ref: 'staging'
       - name: NPM Cache
         uses: actions/cache@v2
         with:
