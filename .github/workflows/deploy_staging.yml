@@ -23,6 +23,7 @@ jobs:
         run: |
           echo "${{ secrets.ENV }}" > .env
           grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
+          grep -v '    "postinstall": "patch-package && cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           npm install
 
       # Build
@@ -44,7 +45,7 @@ jobs:
           echo "${{ secrets.FASTLANE_ANDROID_ENV }}" > android/fastlane/.env
           cd android && bundle install
       - name: Distribute to firebase
-        run: cd android && bundle exec fastlane beta
+        run: cd android && bundle exec fastlane staging
 
   distribute-ios:
     runs-on: macOS-latest
@@ -77,4 +78,4 @@ jobs:
         run: |
           echo "${{ secrets.FASTLANE_IOS_ENV }}" > ios/fastlane/.env
       - name: Distribute to firebase
-        run: cd ios && fastlane beta
+        run: cd ios && fastlane staging

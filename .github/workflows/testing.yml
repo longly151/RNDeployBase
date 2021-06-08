@@ -22,6 +22,7 @@ jobs:
         run: |
           echo "${{ secrets.ENV }}" > .env
           grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
+          grep -v '    "postinstall": "patch-package && cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           npm install
       - name: Lint Test
         run: |
@@ -49,6 +50,7 @@ jobs:
         run: |
           echo "${{ secrets.ENV }}" > .env
           grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
+          grep -v '    "postinstall": "patch-package && cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           npm install
 
       # Build

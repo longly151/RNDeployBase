@@ -1,8 +1,8 @@
-name: Pong Beta
+name: Pong Staging
 
 on:
   repository_dispatch:
-    types: [VLRNBase_ping_beta, Motivated_ping_beta, MinhChauViet_ping_beta]
+    types: [VLRNBase_ping_staging, Motivated_ping_staging, MinhChauViet_ping_staging]
 jobs:
   ping-pong:
     runs-on: ubuntu-latest
@@ -32,6 +32,7 @@ jobs:
         run: |
           echo "${{ secrets[github.event.client_payload.env] }}" > .env
           grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
+          grep -v '    "postinstall": "patch-package && cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           npm install
 
       # Set ENV
@@ -59,7 +60,7 @@ jobs:
           echo "${{ secrets[github.event.client_payload.fastlane_android_env] }}" > android/fastlane/.env
           cd android && bundle install
       - name: Distribute to firebase
-        run: cd android && bundle exec fastlane beta
+        run: cd android && bundle exec fastlane staging
 
   distribute-ios:
     runs-on: macOS-latest
@@ -96,4 +97,4 @@ jobs:
         run: |
           echo "${{ secrets[github.event.client_payload.fastlane_ios_env] }}" > ios/fastlane/.env
       - name: Distribute to firebase
-        run: cd ios && fastlane beta
+        run: cd ios && fastlane staging
