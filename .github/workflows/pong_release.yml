@@ -32,6 +32,7 @@ jobs:
       - name: NPM Install
         run: |
           echo "${{ secrets[github.event.client_payload.env] }}" > .env
+          echo "${{ secrets[github.event.client_payload.env] }}" > .env.production
           grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           grep -v '    "postinstall": "patch-package && cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           npm install
