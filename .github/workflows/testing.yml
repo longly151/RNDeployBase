@@ -9,27 +9,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: NPM Cache
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: YARN Cache
         uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: |
-            ~/.npm
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
             **/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: Install npm dependencies
+            ${{ runner.os }}-yarn-
+      - name: Install yarn dependencies
         run: |
           echo "${{ secrets.ENV }}" > .env
           grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           grep -v '    "postinstall": "patch-package && cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
-          npm install
+          yarn install
       - name: Lint Test
         run: |
-          npm run lint
+          yarn lint
       - name: JS Test
         run: |
-          npm run test
+          yarn test
 
   android-test:
     needs: install-and-js-test
@@ -37,21 +41,25 @@ jobs:
     steps:
       # Node
       - uses: actions/checkout@v2
-      - name: NPM Cache
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: YARN Cache
         uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: |
-            ~/.npm
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
             **/node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-node-
-      - name: NPM Install
+            ${{ runner.os }}-yarn-
+      - name: YARN Install
         run: |
           echo "${{ secrets.ENV }}" > .env
           grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           grep -v '    "postinstall": "patch-package && cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
-          npm install
+          yarn install
 
       # Build
       - uses: actions/setup-ruby@v1
@@ -83,19 +91,23 @@ jobs:
   #   steps:
   #     # Node
   #     - uses: actions/checkout@v2
-  #     - name: NPM Cache
+  #     - name: Get yarn cache directory path
+  #       id: yarn-cache-dir-path
+  #       run: echo "::set-output name=dir::$(yarn cache dir)"
+  #     - name: YARN Cache
   #       uses: actions/cache@v2
+  #       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
   #       with:
   #         path: |
-  #           ~/.npm
+  #           ${{ steps.yarn-cache-dir-path.outputs.dir }}
   #           **/node_modules
-  #         key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+  #         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
   #         restore-keys: |
-  #           ${{ runner.os }}-node-
-  #     - name: NPM Install
+  #           ${{ runner.os }}-yarn-
+  #     - name: YARN Install
   #       run: |
   #         echo "${{ secrets.ENV }}" > .env
-  #         npm install
+  #         yarn install
 
   #     # Build
   #     - name: Pods Cache
