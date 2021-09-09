@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "${{ secrets.ENV }}" > .env
           grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
-          grep -v '    "postinstall": "patch-package && cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
+          sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
 
       # Build
