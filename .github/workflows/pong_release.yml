@@ -2,7 +2,7 @@ name: Pong Release
 
 on:
   repository_dispatch:
-    types: [VLRNBase_ping_release, Motivated_ping_release, MinhChauViet_ping_release]
+    types: [VLRNBase_ping_release, Motivated_ping_release, MinhChauViet_ping_release, NauLinen_ping_release]
 
 jobs:
   ping-pong:
