@@ -25,7 +25,6 @@ jobs:
       - name: Install yarn dependencies
         run: |
           echo "${{ secrets.ENV }}" > .env
-          grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
       - name: Lint Test
@@ -57,7 +56,6 @@ jobs:
       - name: YARN Install
         run: |
           echo "${{ secrets.ENV }}" > .env
-          grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
 

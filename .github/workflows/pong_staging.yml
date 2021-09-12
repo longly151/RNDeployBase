@@ -36,7 +36,6 @@ jobs:
         run: |
           echo "${{ secrets[github.event.client_payload.env] }}" > .env
           echo "${{ secrets[github.event.client_payload.env] }}" > .env.staging
-          grep -v '    "postinstall": "cd ios && pod install && cd .."' package.json > temp-package.json; mv temp-package.json package.json
           sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
 
