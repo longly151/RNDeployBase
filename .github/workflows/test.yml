@@ -58,7 +58,6 @@ jobs:
           echo "${{ secrets.ENV }}" > .env
           sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
-          yarn test
 
       # Build
       - uses: actions/setup-ruby@v1
