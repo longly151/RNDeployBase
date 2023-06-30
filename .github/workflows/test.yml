@@ -60,7 +60,7 @@ jobs:
           yarn install
 
       # Build
-      - uses: actions/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.7'
       - name: Bundle Cache
