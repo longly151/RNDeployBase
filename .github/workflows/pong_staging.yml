@@ -2,7 +2,7 @@ name: Pong Staging
 
 on:
   repository_dispatch:
-    types: [RNBase_ping_staging, VLRNBase_ping_staging, Motivated_ping_staging, MinhChauViet_ping_staging, NauLinen_ping_staging, OffWeGo_ping_staging, MoonStep_ping_staging]
+    types: [CHILLWHEEL_ping_staging, RNBase_ping_staging, VLRNBase_ping_staging, Motivated_ping_staging, MinhChauViet_ping_staging, NauLinen_ping_staging, OffWeGo_ping_staging, MoonStep_ping_staging]
 jobs:
   ping-pong:
     runs-on: ubuntu-latest
