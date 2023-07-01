@@ -51,7 +51,7 @@ jobs:
         run: cd android && bundle exec fastlane staging
 
   distribute-ios:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       # Node
       - uses: actions/checkout@v2

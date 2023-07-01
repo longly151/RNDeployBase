@@ -65,10 +65,10 @@ jobs:
           echo "${{ secrets[github.event.client_payload.fastlane_android_env] }}" > android/fastlane/.env
           cd android && bundle install
       - name: Distribute release version
-        run: cd android && bundle exec fastlane release
+        run: cd android && fastlane release
 
   distribute-ios:
-    runs-on: macOS-latest
+    runs-on: macos-latest
     steps:
       # Node
       - uses: actions/checkout@v2
