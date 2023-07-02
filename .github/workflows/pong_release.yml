@@ -62,7 +62,7 @@ jobs:
             ${{ runner.os }}-gems-
       - name: Setup fastlane
         run: |
-          cat > file << 'EOF'
+          cat > android/fastlane/.env << 'EOF'
           ${{ secrets[github.event.client_payload.fastlane_android_env] }}
           EOF
           cd android && bundle install
