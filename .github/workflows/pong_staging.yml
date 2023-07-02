@@ -106,3 +106,9 @@ jobs:
       #     printf '%s\n' '${{ secrets[github.event.client_payload.fastlane_ios_env] }}' > ios/fastlane/.env
       - name: Distribute to firebase
         run: cd ios && fastlane staging
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist-without-markdown
+          path: |
+            ./ios/test_output/*test_result/*Test/Diagnostics/**/**/Session*.log
