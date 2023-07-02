@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Event Information
         run: |
-          echo "Event '${{ github.event.action }}' received from '${{ github.event.client_payload.repository }}'"
+          echo -e 'Event "${{ github.event.action }}" received from "${{ github.event.client_payload.repository }}"'
   distribute-android:
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +22,7 @@ jobs:
           ref: 'production'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo -e '::set-output name=dir::$(yarn cache dir)'
       - name: YARN Cache
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
@@ -35,16 +35,16 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: YARN Install
         run: |
-          echo "${{ secrets[github.event.client_payload.env] }}" > .env
-          echo "${{ secrets[github.event.client_payload.env] }}" > .env.production
+          echo -e '${{ secrets[github.event.client_payload.env] }}' > .env
+          echo -e '${{ secrets[github.event.client_payload.env] }}' > .env.production
           sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
 
       # Set ENV
       # - name: Set ENV
       #   run: |
-      #     echo "::set-env name=AWS_ACCESS_KEY_ID_SECRET_NAME::AWS_ACCESS_KEY_ID_${GITHUB_REF_SLUG}"
-      #     echo "::set-env name=AWS_SECRET_ACCESS_KEY_SECRET_NAME::AWS_SECRET_ACCESS_KEY_${GITHUB_REF_SLUG}"
+      #     echo -e '::set-env name=AWS_ACCESS_KEY_ID_SECRET_NAME::AWS_ACCESS_KEY_ID_${GITHUB_REF_SLUG}'
+      #     echo -e '::set-env name=AWS_SECRET_ACCESS_KEY_SECRET_NAME::AWS_SECRET_ACCESS_KEY_${GITHUB_REF_SLUG}'
 
       # Build
       - uses: ruby/setup-ruby@v1
@@ -62,7 +62,7 @@ jobs:
             ${{ runner.os }}-gems-
       - name: Setup fastlane
         run: |
-          echo "${{ secrets[github.event.client_payload.fastlane_android_env] }}" > android/fastlane/.env
+          echo -e '${{ secrets[github.event.client_payload.fastlane_android_env] }}' > android/fastlane/.env
           cd android && bundle install
       - name: Distribute release version
         run: cd android && fastlane release
@@ -78,7 +78,7 @@ jobs:
           ref: 'production'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo -e '::set-output name=dir::$(yarn cache dir)'
       - name: YARN Cache
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
@@ -98,12 +98,12 @@ jobs:
             ${{ runner.os }}-pods-
       - name: YARN Install
         run: |
-          echo "${{ secrets[github.event.client_payload.env] }}" > .env
+          echo -e '${{ secrets[github.event.client_payload.env] }}' > .env
           yarn install
 
       # Build
       - name: Setup fastlane
         run: |
-          echo "${{ secrets[github.event.client_payload.fastlane_ios_env] }}" > ios/fastlane/.env
+          echo -e '${{ secrets[github.event.client_payload.fastlane_ios_env] }}' > ios/fastlane/.env
       - name: Distribute release version
         run: cd ios && fastlane release
