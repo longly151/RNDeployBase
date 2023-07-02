@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Event Information
         run: |
-          echo -e 'Event "${{ github.event.action }}" received from "${{ github.event.client_payload.repository }}"'
+          printf '%s\n' 'Event "${{ github.event.action }}" received from "${{ github.event.client_payload.repository }}"'
   distribute-android:
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +22,7 @@ jobs:
           ref: 'production'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo -e '::set-output name=dir::$(yarn cache dir)'
+        run: printf '%s\n' '::set-output name=dir::$(yarn cache dir)'
       - name: YARN Cache
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
@@ -35,16 +35,16 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: YARN Install
         run: |
-          echo -e '${{ secrets[github.event.client_payload.env] }}' > .env
-          echo -e '${{ secrets[github.event.client_payload.env] }}' > .env.production
+          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
+          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.production
           sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
 
       # Set ENV
       # - name: Set ENV
       #   run: |
-      #     echo -e '::set-env name=AWS_ACCESS_KEY_ID_SECRET_NAME::AWS_ACCESS_KEY_ID_${GITHUB_REF_SLUG}'
-      #     echo -e '::set-env name=AWS_SECRET_ACCESS_KEY_SECRET_NAME::AWS_SECRET_ACCESS_KEY_${GITHUB_REF_SLUG}'
+      #     printf '%s\n' '::set-env name=AWS_ACCESS_KEY_ID_SECRET_NAME::AWS_ACCESS_KEY_ID_${GITHUB_REF_SLUG}'
+      #     printf '%s\n' '::set-env name=AWS_SECRET_ACCESS_KEY_SECRET_NAME::AWS_SECRET_ACCESS_KEY_${GITHUB_REF_SLUG}'
 
       # Build
       - uses: ruby/setup-ruby@v1
@@ -78,7 +78,7 @@ jobs:
           ref: 'production'
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo -e '::set-output name=dir::$(yarn cache dir)'
+        run: printf '%s\n' '::set-output name=dir::$(yarn cache dir)'
       - name: YARN Cache
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
@@ -98,7 +98,7 @@ jobs:
             ${{ runner.os }}-pods-
       - name: YARN Install
         run: |
-          echo -e '${{ secrets[github.event.client_payload.env] }}' > .env
+          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
           yarn install
 
       # Build
