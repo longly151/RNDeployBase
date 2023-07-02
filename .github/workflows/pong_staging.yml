@@ -101,8 +101,8 @@ jobs:
           yarn install
 
       # Build
-      - name: Setup fastlane
-        run: |
-          printf '%s\n' '${{ secrets[github.event.client_payload.fastlane_ios_env] }}' > ios/fastlane/.env
+      # - name: Setup fastlane
+      #   run: |
+      #     printf '%s\n' '${{ secrets[github.event.client_payload.fastlane_ios_env] }}' > ios/fastlane/.env
       - name: Distribute to firebase
         run: cd ios && fastlane staging
