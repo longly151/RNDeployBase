@@ -104,6 +104,6 @@ jobs:
       # Build
       - name: Setup fastlane
         run: |
-          echo -e '${{ secrets[github.event.client_payload.fastlane_ios_env] }}' > ios/fastlane/.env
+          printf '%s\n' '${{ secrets[github.event.client_payload.fastlane_ios_env] }}' > ios/fastlane/.env
       - name: Distribute release version
         run: cd ios && fastlane release
