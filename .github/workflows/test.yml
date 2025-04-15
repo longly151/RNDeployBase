@@ -13,7 +13,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: YARN Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: |
@@ -44,7 +44,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: YARN Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: |
@@ -64,7 +64,7 @@ jobs:
         with:
           ruby-version: '2.7'
       - name: Bundle Cache
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: android/vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -93,7 +93,7 @@ jobs:
   #       id: yarn-cache-dir-path
   #       run: echo "::set-output name=dir::$(yarn cache dir)"
   #     - name: YARN Cache
-  #       uses: actions/cache@v2
+  #       uses: actions/cache@v3
   #       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
   #       with:
   #         path: |
@@ -109,7 +109,7 @@ jobs:
 
   #     # Build
   #     - name: Pods Cache
-  #       uses: actions/cache@v2
+  #       uses: actions/cache@v3
   #       with:
   #         path: ios/Pods
   #         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
