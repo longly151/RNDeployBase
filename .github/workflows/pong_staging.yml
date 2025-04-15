@@ -63,7 +63,7 @@ jobs:
       #   run: |
       #     cd android && bundle install
       - name: Distribute to firebase
-        run: yarn env:stag && yarn prebuild:clean && yarn fastlane-android:stag
+        run: yarn ci-android:stag
 
   distribute-ios:
     runs-on: macos-latest
@@ -101,7 +101,7 @@ jobs:
           yarn install
 
       - name: Distribute to firebase
-        run: yarn env:stag && yarn prebuild:clean && yarn fastlane-ios:stag
+        run: yarn ci-ios:stag
       - name: Archive production artifacts
         uses: actions/upload-artifact@v4
         with:

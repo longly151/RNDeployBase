@@ -64,7 +64,7 @@ jobs:
       #   run: |
       #     cd android && bundle install
       - name: Distribute release version
-        run: yarn env:prod && yarn prebuild:clean && yarn fastlane-android:prod
+        run: yarn ci-android:prod
 
   distribute-ios:
     runs-on: macos-latest
@@ -103,4 +103,4 @@ jobs:
 
       # Build
       - name: Distribute release version
-        run: yarn env:prod && yarn prebuild:clean && yarn fastlane-ios:prod
+        run: yarn ci-ios:prod
