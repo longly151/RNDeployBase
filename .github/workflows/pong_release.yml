@@ -36,7 +36,7 @@ jobs:
       - name: YARN Install
         run: |
           printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
-          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.production
+          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.prod
           sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
 
@@ -53,16 +53,16 @@ jobs:
       - name: Install firebase tool
         run: |
           yarn global add firebase-tools
-      - name: Bundle Cache
-        uses: actions/cache@v4
-        with:
-          path: android/vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-      - name: Setup fastlane
-        run: |
-          cd android && bundle install
+      # - name: Bundle Cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: android/vendor/bundle
+      #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-gems-
+      # - name: Setup fastlane
+      #   run: |
+      #     cd android && bundle install
       - name: Distribute release version
         run: yarn env:prod && yarn prebuild:clean && yarn fastlane-android:prod
 
@@ -98,6 +98,7 @@ jobs:
       - name: YARN Install
         run: |
           printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
+          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.prod
           yarn install
 
       # Build

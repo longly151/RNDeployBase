@@ -97,6 +97,7 @@ jobs:
       - name: YARN Install
         run: |
           printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
+          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.staging
           yarn install
 
       - name: Distribute to firebase
