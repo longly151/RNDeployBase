@@ -62,10 +62,9 @@ jobs:
             ${{ runner.os }}-gems-
       - name: Setup fastlane
         run: |
-          printf '%s\n' '${{ secrets[github.event.client_payload.fastlane_android_env] }}' > android/fastlane/.env
           cd android && bundle install
       - name: Distribute release version
-        run: cd android && fastlane release
+        run: yarn env:prod && yarn prebuild:clean && yarn fastlane-android:prod
 
   distribute-ios:
     runs-on: macos-latest
@@ -102,8 +101,5 @@ jobs:
           yarn install
 
       # Build
-      - name: Setup fastlane
-        run: |
-          printf '%s\n' '${{ secrets[github.event.client_payload.fastlane_ios_env] }}' > ios/fastlane/.env
       - name: Distribute release version
-        run: cd ios && fastlane release
+        run: yarn env:prod && yarn prebuild:clean && yarn fastlane-ios:prod

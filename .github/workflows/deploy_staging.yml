@@ -45,10 +45,9 @@ jobs:
             ${{ runner.os }}-gems-
       - name: Setup fastlane
         run: |
-          echo "${{ secrets.FASTLANE_ANDROID_ENV }}" > android/fastlane/.env
           cd android && bundle install
       - name: Distribute to firebase
-        run: cd android && bundle exec fastlane staging
+        run: yarn env:stag && yarn prebuild:clean && yarn fastlane-android:stag
 
   distribute-ios:
     runs-on: macos-latest
@@ -81,8 +80,5 @@ jobs:
           yarn install
 
       # Build
-      - name: Setup fastlane
-        run: |
-          echo "${{ secrets.FASTLANE_IOS_ENV }}" > ios/fastlane/.env
       - name: Distribute to firebase
-        run: cd ios && fastlane staging
+        run: yarn env:stag && yarn prebuild:clean && yarn fastlane-ios:stag
