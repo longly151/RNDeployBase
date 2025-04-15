@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Node
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: '${{ github.event.client_payload.repository }}'
           token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
@@ -69,7 +69,7 @@ jobs:
     runs-on: macos-latest
     steps:
       # Node
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           repository: '${{ github.event.client_payload.repository }}'
           token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
