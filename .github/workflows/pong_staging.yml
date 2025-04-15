@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Node
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           repository: '${{ github.event.client_payload.repository }}'
           token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
@@ -23,7 +23,7 @@ jobs:
         id: yarn-cache-dir-path
         run: printf '%s\n' '::set-output name=dir::$(yarn cache dir)'
       - name: YARN Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: |
@@ -53,15 +53,15 @@ jobs:
         run: |
           yarn global add firebase-tools
       # - name: Bundle Cache
-      #   uses: actions/cache@v3
+      #   uses: actions/cache@v4
       #   with:
       #     path: android/vendor/bundle
       #     key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
       #     restore-keys: |
       #       ${{ runner.os }}-gems-
-      - name: Setup fastlane
-        run: |
-          cd android && bundle install
+      # - name: Setup fastlane
+      #   run: |
+      #     cd android && bundle install
       - name: Distribute to firebase
         run: yarn env:stag && yarn prebuild:clean && yarn fastlane-android:stag
 
@@ -69,7 +69,7 @@ jobs:
     runs-on: macos-latest
     steps:
       # Node
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           repository: '${{ github.event.client_payload.repository }}'
           token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
@@ -78,7 +78,7 @@ jobs:
         id: yarn-cache-dir-path
         run: printf '%s\n' '::set-output name=dir::$(yarn cache dir)'
       - name: YARN Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: |
@@ -88,7 +88,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: Pods Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ios/Pods
           key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}

@@ -8,12 +8,12 @@ jobs:
   install-and-js-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: YARN Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: |
@@ -39,12 +39,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Node
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
       - name: YARN Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: |
@@ -64,7 +64,7 @@ jobs:
         with:
           ruby-version: '2.7'
       - name: Bundle Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: android/vendor/bundle
           key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
@@ -74,7 +74,7 @@ jobs:
       #   run: |
       #     cd android && ./gradlew assembleRelease
       # - name: Upload Artifact
-      #   uses: actions/upload-artifact@v1
+      #   uses: actions/upload-artifact@v4
       #   with:
       #     name: app-release.apk
       #     path: android/app/build/outputs/apk/release/
@@ -88,12 +88,12 @@ jobs:
   #   runs-on: macOS-latest
   #   steps:
   #     # Node
-  #     - uses: actions/checkout@v2
+  #     - uses: actions/checkout@v4
   #     - name: Get yarn cache directory path
   #       id: yarn-cache-dir-path
   #       run: echo "::set-output name=dir::$(yarn cache dir)"
   #     - name: YARN Cache
-  #       uses: actions/cache@v3
+  #       uses: actions/cache@v4
   #       id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
   #       with:
   #         path: |
@@ -109,7 +109,7 @@ jobs:
 
   #     # Build
   #     - name: Pods Cache
-  #       uses: actions/cache@v3
+  #       uses: actions/cache@v4
   #       with:
   #         path: ios/Pods
   #         key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
