@@ -64,6 +64,9 @@ jobs:
       #     cd android && bundle install
       - name: Distribute to firebase
         run: yarn ci-android:stag
+      - name: Commit version
+        run: |
+          fastlane commit_version
 
   distribute-ios:
     runs-on: macos-latest
@@ -108,3 +111,6 @@ jobs:
           name: dist-without-markdown
           path: |
             ./ios/test_output/*test_result/*Test/Diagnostics/**/**/Session*.log
+      - name: Commit version
+        run: |
+          fastlane commit_version
