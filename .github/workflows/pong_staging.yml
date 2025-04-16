@@ -66,6 +66,7 @@ jobs:
         run: yarn ci-android:stag
       - name: Commit version
         run: |
+          cd android
           fastlane commit_version
 
   distribute-ios:
@@ -113,4 +114,5 @@ jobs:
             ./ios/test_output/*test_result/*Test/Diagnostics/**/**/Session*.log
       - name: Commit version
         run: |
+          cd ios
           fastlane commit_version
