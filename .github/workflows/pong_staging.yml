@@ -114,11 +114,6 @@ jobs:
           printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.staging
           yarn install
 
-      - name: Install iOS 18 SDK
-        run: |
-          xcodebuild -downloadPlatform iOS
-          ls -l "$(xcode-select -p)/Platforms/iPhoneOS.platform/Developer/SDKs"
-
       - name: Distribute to firebase
         run: yarn ci-ios:stag
       - name: Archive production artifacts

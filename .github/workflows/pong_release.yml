@@ -105,11 +105,6 @@ jobs:
           printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.prod
           yarn install
 
-      - name: Install iOS 18 SDK
-        run: |
-          xcodebuild -downloadPlatform iOS
-          ls -l "$(xcode-select -p)/Platforms/iPhoneOS.platform/Developer/SDKs"
-
       # Build
       - name: Distribute release version
         run: yarn ci-ios:prod
