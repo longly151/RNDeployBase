@@ -85,7 +85,7 @@ jobs:
           cd android && fastlane test
 
   # ios-test:
-  #   runs-on: macOS-15-arm64
+  #   runs-on: macOS-15
   #   steps:
   #     # Node
   #     - uses: actions/checkout@v4

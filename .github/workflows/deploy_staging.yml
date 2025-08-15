@@ -50,7 +50,7 @@ jobs:
         run: yarn env:stag && yarn prebuild:clean && yarn fastlane-android:stag
 
   distribute-ios:
-    runs-on: macOS-15-arm64
+    runs-on: macOS-15
     steps:
       # Node
       - uses: actions/checkout@v4
