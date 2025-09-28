@@ -50,6 +50,15 @@ jobs:
       #     printf '%s\n' '::set-env name=AWS_ACCESS_KEY_ID_SECRET_NAME::AWS_ACCESS_KEY_ID_${GITHUB_REF_SLUG}'
       #     printf '%s\n' '::set-env name=AWS_SECRET_ACCESS_KEY_SECRET_NAME::AWS_SECRET_ACCESS_KEY_${GITHUB_REF_SLUG}'
 
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet \
+                      /opt/ghc \
+                      /opt/hostedtoolcache \
+                      "$AGENT_TOOLSDIRECTORY"
+          docker system prune -af
+          sudo apt-get clean
+
       # Build
       - uses: ruby/setup-ruby@v1
         with:
