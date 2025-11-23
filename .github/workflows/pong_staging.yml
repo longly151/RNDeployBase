@@ -22,16 +22,16 @@ jobs:
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: printf '%s\n' "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      # - name: YARN Cache
-      #   uses: actions/cache@v4
-      #   id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-      #   with:
-      #     path: |
-      #       ${{ steps.yarn-cache-dir-path.outputs.dir }}
-      #       **/node_modules
-      #     key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-yarn-
+      - name: YARN Cache
+        uses: actions/cache@v4
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: |
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            **/node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
       # - name: Manually clear Yarn cache
       #   run: |
       #     yarn cache clean
@@ -110,13 +110,13 @@ jobs:
       #     yarn cache clean
       #     rm -rf ${{ steps.yarn-cache-dir-path.outputs.dir }}
       #     rm -rf node_modules
-      - name: Pods Cache
-        uses: actions/cache@v4
-        with:
-          path: ios/Pods
-          key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-pods-
+      # - name: Pods Cache
+      #   uses: actions/cache@v4
+      #   with:
+      #     path: ios/Pods
+      #     key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-pods-
       - name: YARN Install
         run: |
           printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
