@@ -2,7 +2,7 @@ name: Deploy Staging
 
 on:
   push:
-    branches: [ staging ]
+    branches: [staging]
 
 jobs:
   distribute-android:
@@ -10,6 +10,11 @@ jobs:
     steps:
       # Node
       - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: yarn
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
@@ -32,10 +37,10 @@ jobs:
       # Build
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: "2.7"
       - name: Install firebase tool
         run: |
-          yarn global add firebase-tools
+          npm install -g firebase-tools
       # - name: Bundle Cache
       #   uses: actions/cache@v4
       #   with:
@@ -54,6 +59,11 @@ jobs:
     steps:
       # Node
       - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: yarn
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT

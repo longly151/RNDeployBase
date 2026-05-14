@@ -2,7 +2,18 @@ name: Pong Release
 
 on:
   repository_dispatch:
-    types: [MoneyTrackerAI_ping_release, ChillWheel_ping_release, RNBase_ping_release, VLRNBase_ping_release, Motivated_ping_release, MinhChauViet_ping_release, NauLinen_ping_release, OffWeGo_ping_release, MoonStep_ping_release]
+    types:
+      [
+        MoneyTrackerAI_ping_release,
+        ChillWheel_ping_release,
+        RNBase_ping_release,
+        VLRNBase_ping_release,
+        Motivated_ping_release,
+        MinhChauViet_ping_release,
+        NauLinen_ping_release,
+        OffWeGo_ping_release,
+        MoonStep_ping_release,
+      ]
 
 jobs:
   ping-pong:
@@ -17,9 +28,13 @@ jobs:
       # Node
       - uses: actions/checkout@v4
         with:
-          repository: '${{ github.event.client_payload.repository }}'
-          token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
-          ref: 'production'
+          repository: "${{ github.event.client_payload.repository }}"
+          token: "${{ secrets[github.event.client_payload.ping_access_token] }}"
+          ref: "production"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: printf '%s\n' "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
@@ -58,10 +73,10 @@ jobs:
       # Build
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.7'
+          ruby-version: "2.7"
       - name: Install firebase tool
         run: |
-          yarn global add firebase-tools
+          npm install -g firebase-tools
       # - name: Bundle Cache
       #   uses: actions/cache@v4
       #   with:
@@ -85,9 +100,13 @@ jobs:
       # Node
       - uses: actions/checkout@v4
         with:
-          repository: '${{ github.event.client_payload.repository }}'
-          token: '${{ secrets[github.event.client_payload.ping_access_token] }}'
-          ref: 'production'
+          repository: "${{ github.event.client_payload.repository }}"
+          token: "${{ secrets[github.event.client_payload.ping_access_token] }}"
+          ref: "production"
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: printf '%s\n' "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
