@@ -4,6 +4,7 @@ on:
   repository_dispatch:
     types:
       [
+        TripSnapAI_ping_release,
         MoneyTrackerAI_ping_release,
         ChillWheel_ping_release,
         RNBase_ping_release,
