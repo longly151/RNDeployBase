@@ -87,7 +87,8 @@ jobs:
       # Build
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: "2.7"
+          # A project whose Gemfile.lock needs a newer Ruby sends client_payload.ruby_version
+          ruby-version: ${{ github.event.client_payload.ruby_version || '2.7' }}
       - name: Install firebase tool
         run: |
           npm install -g firebase-tools
