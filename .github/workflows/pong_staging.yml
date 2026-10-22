@@ -37,7 +37,13 @@ jobs:
           node-version: "22"
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: printf '%s\n' "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+        # Yarn 1 has `yarn cache dir`; Yarn 2+ (Berry) only `yarn config get cacheFolder`
+        run: |
+          if [ "$(yarn --version | cut -d. -f1)" = "1" ]; then
+            printf '%s\n' "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+          else
+            printf '%s\n' "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+          fi
       - name: YARN Cache
         uses: actions/cache@v4
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
@@ -114,7 +120,13 @@ jobs:
           node-version: "22"
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: printf '%s\n' "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+        # Yarn 1 has `yarn cache dir`; Yarn 2+ (Berry) only `yarn config get cacheFolder`
+        run: |
+          if [ "$(yarn --version | cut -d. -f1)" = "1" ]; then
+            printf '%s\n' "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+          else
+            printf '%s\n' "dir=$(yarn config get cacheFolder)" >> $GITHUB_OUTPUT
+          fi
       # - name: YARN Cache
       #   uses: actions/cache@v4
       #   id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
