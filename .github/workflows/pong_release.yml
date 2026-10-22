@@ -56,9 +56,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - name: YARN Install
+        # The env file goes in through env, never inlined: a quote in it would end the shell string
+        env:
+          APP_ENV_FILE: ${{ secrets[github.event.client_payload.env] }}
         run: |
-          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
-          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.prod
+          printf '%s\n' "$APP_ENV_FILE" > .env
+          printf '%s\n' "$APP_ENV_FILE" > .env.prod
           sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
 
@@ -141,9 +144,12 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-pods-
       - name: YARN Install
+        # The env file goes in through env, never inlined: a quote in it would end the shell string
+        env:
+          APP_ENV_FILE: ${{ secrets[github.event.client_payload.env] }}
         run: |
-          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
-          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.prod
+          printf '%s\n' "$APP_ENV_FILE" > .env
+          printf '%s\n' "$APP_ENV_FILE" > .env.prod
           yarn install
 
       # Build

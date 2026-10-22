@@ -60,9 +60,12 @@ jobs:
       #     rm -rf ${{ steps.yarn-cache-dir-path.outputs.dir }}
       #     rm -rf node_modules
       - name: YARN Install
+        # The env file goes in through env, never inlined: a quote in it would end the shell string
+        env:
+          APP_ENV_FILE: ${{ secrets[github.event.client_payload.env] }}
         run: |
-          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
-          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.staging
+          printf '%s\n' "$APP_ENV_FILE" > .env
+          printf '%s\n' "$APP_ENV_FILE" > .env.staging
           sed -i -e 's/ && cd ios && pod install && cd ..//g' package.json
           yarn install
 
@@ -150,9 +153,12 @@ jobs:
       #     restore-keys: |
       #       ${{ runner.os }}-pods-
       - name: YARN Install
+        # The env file goes in through env, never inlined: a quote in it would end the shell string
+        env:
+          APP_ENV_FILE: ${{ secrets[github.event.client_payload.env] }}
         run: |
-          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env
-          printf '%s\n' '${{ secrets[github.event.client_payload.env] }}' > .env.staging
+          printf '%s\n' "$APP_ENV_FILE" > .env
+          printf '%s\n' "$APP_ENV_FILE" > .env.staging
           yarn install
 
       - name: Distribute to firebase
